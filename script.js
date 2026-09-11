@@ -6,17 +6,6 @@ const buttons = originalPhotos.map((photo) => photo.querySelector('.photo-button
 const sources = buttons.map((button) => button.dataset.src);
 let currentIndex = 0;
 
-function waitForImages() {
-  return Promise.all(originalPhotos.map((photo) => {
-    const img = photo.querySelector('img');
-    if (img.complete && img.naturalWidth) return Promise.resolve();
-    return new Promise((resolve) => {
-      img.addEventListener('load', resolve, { once: true });
-      img.addEventListener('error', resolve, { once: true });
-    });
-  }));
-}
-
 function columnCount() {
   const w = window.innerWidth;
   if (w <= 620) return 1;
@@ -46,9 +35,11 @@ function layoutGallery() {
   const heights = Array(cols).fill(0);
   originalPhotos.forEach((photo) => {
     const img = photo.querySelector('img');
-    const ratio = (img.naturalWidth && img.naturalHeight)
-      ? img.naturalHeight / img.naturalWidth
-      : 0.75;
+    const declaredWidth = Number(img.getAttribute('width'));
+    const declaredHeight = Number(img.getAttribute('height'));
+    const ratio = (declaredWidth && declaredHeight)
+      ? declaredHeight / declaredWidth
+      : ((img.naturalWidth && img.naturalHeight) ? img.naturalHeight / img.naturalWidth : 0.75);
     const target = heights.indexOf(Math.min(...heights));
     columns[target].appendChild(photo);
     heights[target] += ratio + 0.03;
@@ -96,4 +87,5 @@ function relayoutIfNeeded() {
   if (cols !== lastCols) { lastCols = cols; layoutGallery(); }
 }
 window.addEventListener('resize', relayoutIfNeeded);
-waitForImages().then(() => { lastCols = columnCount(); layoutGallery(); });
+lastCols = columnCount();
+layoutGallery();
