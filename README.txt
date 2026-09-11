@@ -1,11 +1,9 @@
-JOHAN PHOTO GALLERY — v0.6
+ARNECO — gallery
 
-Open index.html in a browser.
+To add/reorder photos:
+1. Upload the JPEG to /images.
+2. Open photos.js.
+3. Add/move the photo block in the list.
+4. Commit changes.
 
-Changes in v0.6:
-- Adaptive justified-row layout instead of fixed columns.
-- Portrait and landscape photos are mixed automatically based on their real aspect ratios.
-- No image is assigned a specific column, so future batches can be mostly landscape, mostly portrait or mixed.
-- Tighter 6 px gaps on desktop.
-- Smaller, more contact-sheet-like overall scale.
-- Contact remains a separate minimal page.
+The order in photos.js controls the gallery order.

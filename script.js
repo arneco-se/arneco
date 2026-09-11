@@ -1,9 +1,6 @@
 const gallery = document.querySelector('.gallery');
 const dialog = document.querySelector('.lightbox');
 const lightboxImage = dialog?.querySelector('img');
-const originalPhotos = gallery ? [...gallery.querySelectorAll('.photo')] : [];
-const buttons = originalPhotos.map((photo) => photo.querySelector('.photo-button'));
-const sources = buttons.map((button) => button.dataset.src);
 let currentIndex = 0;
 
 function columnCount() {
@@ -13,6 +10,32 @@ function columnCount() {
   if (w <= 1220) return 3;
   if (w <= 1580) return 4;
   return 5;
+}
+
+function createPhoto(photo, index) {
+  const figure = document.createElement('figure');
+  figure.className = 'photo';
+
+  const button = document.createElement('button');
+  button.className = 'photo-button';
+  button.dataset.index = index;
+  button.setAttribute('aria-label', 'Öppna bild');
+
+  const img = document.createElement('img');
+  img.src = photo.file;
+  img.width = photo.width;
+  img.height = photo.height;
+  img.alt = photo.alt || '';
+  img.loading = index === 0 ? 'eager' : 'lazy';
+
+  button.appendChild(img);
+  figure.appendChild(button);
+  button.addEventListener('click', () => {
+    show(index);
+    dialog.showModal();
+    document.body.style.overflow = 'hidden';
+  });
+  return figure;
 }
 
 function layoutGallery() {
@@ -29,38 +52,21 @@ function layoutGallery() {
     return el;
   });
 
-  // Estimate column height from each image's real aspect ratio and always add
-  // the next image to the shortest column. This keeps the wall balanced even
-  // when a future upload contains mostly landscape or mostly portrait images.
   const heights = Array(cols).fill(0);
-  originalPhotos.forEach((photo) => {
-    const img = photo.querySelector('img');
-    const declaredWidth = Number(img.getAttribute('width'));
-    const declaredHeight = Number(img.getAttribute('height'));
-    const ratio = (declaredWidth && declaredHeight)
-      ? declaredHeight / declaredWidth
-      : ((img.naturalWidth && img.naturalHeight) ? img.naturalHeight / img.naturalWidth : 0.75);
+  photos.forEach((photo, index) => {
     const target = heights.indexOf(Math.min(...heights));
-    columns[target].appendChild(photo);
-    heights[target] += ratio + 0.03;
+    columns[target].appendChild(createPhoto(photo, index));
+    heights[target] += (photo.height / photo.width) + 0.03;
   });
 
   gallery.replaceChildren(grid);
 }
 
 function show(index) {
-  currentIndex = (index + sources.length) % sources.length;
-  lightboxImage.src = sources[currentIndex];
-  lightboxImage.alt = buttons[currentIndex].querySelector('img').alt;
+  currentIndex = (index + photos.length) % photos.length;
+  lightboxImage.src = photos[currentIndex].file;
+  lightboxImage.alt = photos[currentIndex].alt || '';
 }
-
-buttons.forEach((button, index) => {
-  button.addEventListener('click', () => {
-    show(index);
-    dialog.showModal();
-    document.body.style.overflow = 'hidden';
-  });
-});
 
 function closeLightbox() {
   dialog.close();
@@ -81,11 +87,12 @@ if (dialog) {
   });
 }
 
-let lastCols = 0;
-function relayoutIfNeeded() {
+let lastCols = columnCount();
+window.addEventListener('resize', () => {
   const cols = columnCount();
-  if (cols !== lastCols) { lastCols = cols; layoutGallery(); }
-}
-window.addEventListener('resize', relayoutIfNeeded);
-lastCols = columnCount();
+  if (cols !== lastCols) {
+    lastCols = cols;
+    layoutGallery();
+  }
+});
 layoutGallery();
