@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Photography portfolio" />
+  <title>Johan — Photography</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="identity" href="index.html" aria-label="Startsida">
+      <span class="name">JOHAN</span>
+      <span class="subtitle">Photography</span>
+    </a>
+    <nav aria-label="Huvudmeny">
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="gallery" aria-label="Fotogalleri">
+      <figure class="photo"><button class="photo-button" data-src="images/10-pink-wall.jpg" aria-label="Öppna bild"><img src="images/10-pink-wall.jpg" alt="Man framför rosa vägg i starkt ljus och skugga" loading="eager"></button></figure>
+      <figure class="photo"><button class="photo-button" data-src="images/01-car-reflection.jpg" aria-label="Öppna bild"><img src="images/01-car-reflection.jpg" alt="Reflektioner av löv och fasad över en äldre bil" loading="lazy"></button></figure>
+      <figure class="photo"><button class="photo-button" data-src="images/02-cocacola.jpg" aria-label="Öppna bild"><img src="images/02-cocacola.jpg" alt="Neonskylt i diner med två personer" loading="lazy"></button></figure>
+      <figure class="photo"><button class="photo-button" data-src="images/06-station.jpg" aria-label="Öppna bild"><img src="images/06-station.jpg" alt="Man går längs järnvägsstation med berg i bakgrunden" loading="lazy"></button></figure>
+      <figure class="photo"><button class="photo-button" data-src="images/03-architecture-circle.jpg" aria-label="Öppna bild"><img src="images/03-architecture-circle.jpg" alt="Modern arkitektur med stort runt fönster" loading="lazy"></button></figure>
+      <figure class="photo"><button class="photo-button" data-src="images/09-plaid.jpg" aria-label="Öppna bild"><img src="images/09-plaid.jpg" alt="Närbild av rutig kappa och orange vantar i solljus" loading="lazy"></button></figure>
+      <figure class="photo"><button class="photo-button" data-src="images/04-concrete-walk.jpg" aria-label="Öppna bild"><img src="images/04-concrete-walk.jpg" alt="Man går längs monumental betongvägg" loading="lazy"></button></figure>
+      <figure class="photo"><button class="photo-button" data-src="images/07-shadows-walk.jpg" aria-label="Öppna bild"><img src="images/07-shadows-walk.jpg" alt="Två personer går genom starka skuggor" loading="lazy"></button></figure>
+      <figure class="photo"><button class="photo-button" data-src="images/08-ferry-man.jpg" aria-label="Öppna bild"><img src="images/08-ferry-man.jpg" alt="Man sitter framför öppet fönster med hav och kust bakom" loading="lazy"></button></figure>
+      <figure class="photo"><button class="photo-button" data-src="images/05-palm-street.jpg" aria-label="Öppna bild"><img src="images/05-palm-street.jpg" alt="Palmträd, hus och person på solig gata" loading="lazy"></button></figure>
+      <figure class="photo"><button class="photo-button" data-src="images/11-resting.jpg" aria-label="Öppna bild"><img src="images/11-resting.jpg" alt="Människor ligger på golvet under en stor vit vägg" loading="lazy"></button></figure>
+      <figure class="photo"><button class="photo-button" data-src="images/12-white-car.jpg" aria-label="Öppna bild"><img src="images/12-white-car.jpg" alt="Vit äldre bil vid vatten med stad i bakgrunden" loading="lazy"></button></figure>
+      <figure class="photo"><button class="photo-button" data-src="images/13-yellow-stripes.jpg" aria-label="Öppna bild"><img src="images/13-yellow-stripes.jpg" alt="Gulrandig klänning och svarta skor i solljus" loading="lazy"></button></figure>
+    </section>
+  </main>
+
+  <dialog class="lightbox" aria-label="Bildvisning">
+    <button class="close" aria-label="Stäng bildvisning">×</button>
+    <button class="nav prev" aria-label="Föregående bild">←</button>
+    <img src="" alt="" />
+    <button class="nav next" aria-label="Nästa bild">→</button>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
